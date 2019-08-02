@@ -32,11 +32,33 @@ class MyProvider extends Component {
   }
 }
 
+// Create a class to display the current value of the variables in the provider. This will act as a child component and you can see that the value of the components from the parent is still being accessed in the child.
+class DisplayName extends Component {
+  render() {
+    return (
+      // Add a consumer wherever you need to access the data from the provider anywhere in the application.
+      <MyContext.Consumer>
+        {context => (
+          <React.Fragment>
+            <h3>Current state for the following variables:</h3>
+            <p>First Name: {context.state.firstName}</p>
+            <p>Last Name: {context.state.lastName}</p>
+          </React.Fragment>
+        )}
+      </MyContext.Consumer>
+    );
+  }
+}
+
 function App() {
   return (
-    <div className="App">
-      <h1>React Context API Example</h1>
-    </div>
+    // Wrap your whole application inside the provider so that you can have access to each and every thing inside provder on the whole applicaiton.
+    <MyProvider>
+      <div>
+        <h1>React Context API Example</h1>
+        <DisplayName />
+      </div>
+    </MyProvider>
   );
 }
 
